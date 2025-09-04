@@ -16,9 +16,9 @@ return new class extends Migration
 
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('province')->nullable();
-            $table->string('city')->nullable();
-            $table->string('village')->nullable();
+            $table->foreignId('province_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('village_id')->nullable()->constrained()->onDelete('cascade');
             $table->string('nationalCode')->unique()->nullable();
             $table->string('mobile')->unique()->nullable();
             $table->string('password')->nullable();

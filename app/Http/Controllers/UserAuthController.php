@@ -48,9 +48,9 @@ class UserAuthController extends Controller
         $userData = [
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'province' => $request->province,
-            'city' => $request->city,
-            'village' => $request->village,
+            'province_id' => $request->province_id,
+            'city_id' => $request->city_id,
+            'village_id' => $request->village_id,
             'nationalCode' => $request->nationalCode,
             'mobile' => $request->mobile,
             'password' => bcrypt($request->password),

@@ -20,9 +20,9 @@ class SendOTPRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'province' => 'required|string',
-            'city' => 'required|string',
-            'village' => 'required|string',
+            'province_id' => 'required|string|exists:provinces,id',
+            'city_id' => 'required|string|exists:cities,id',
+            'village_id' => 'required|string|exists:villages,id',
             'nationalCode' => 'required|string|unique:nationalCode,users',
             'mobile' => 'required|unique:mobile,users',
             'password' => 'required|string',

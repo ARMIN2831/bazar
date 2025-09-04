@@ -142,6 +142,8 @@ return [
         'password_confirmation' => 'تأكيد كلمة السر',
         'city'                  => 'المدينة',
         'city_id'                  => 'المدينة',
+        'province_id'           => 'المقاطعة',
+        'village_id'            => 'القرية',
         'country'               => 'الدولة',
         'country_id'               => 'الدولة',
         'address'               => 'العنوان',
