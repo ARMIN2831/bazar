@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
-use App\Models\Country;
+use App\Models\Province;
+use App\Models\Village;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,9 +12,9 @@ class HomeController extends Controller
 
 
 
-    public function getCountries(Request $request)
+    public function getProvinces(Request $request)
     {
-        $countries = Country::get();
+        $countries = Province::get();
         return response()->json([
             'status' => 'success',
             'data' => $countries,
@@ -29,6 +30,16 @@ class HomeController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $cities,
+        ], 200);
+    }
+
+
+    public function getVillages()
+    {
+        $villages = Village::get();
+        return response()->json([
+            'status' => 'success',
+            'data' => $villages,
         ], 200);
     }
 }

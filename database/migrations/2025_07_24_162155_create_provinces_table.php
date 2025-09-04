@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('provinces', function (Blueprint $table) {
             $table->id();
             $table->string('fa_title');
             $table->string('en_title');
@@ -21,7 +21,14 @@ return new class extends Migration
         });
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('country_id')->constrained()->onDelete('cascade');
+            $table->foreignId('province_id')->constrained()->onDelete('cascade');
+            $table->string('fa_title');
+            $table->string('en_title');
+            $table->string('ar_title');
+            $table->timestamps();
+        });
+        Schema::create('villages', function (Blueprint $table) {
+            $table->id();
             $table->string('fa_title');
             $table->string('en_title');
             $table->string('ar_title');

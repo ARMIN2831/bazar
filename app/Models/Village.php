@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Village extends Model
 {
     protected $guarded = ['id'];
     protected $hidden = ['fa_title', 'en_title', 'ar_title', 'created_at', 'updated_at'];
