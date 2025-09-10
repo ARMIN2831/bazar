@@ -47,9 +47,8 @@ Route::middleware('SetLan')->group(function (){
         Route::post('sendOTP', [UserAuthController::class, 'sendOTP']);
         Route::post('verifyOtp', [UserAuthController::class, 'verifyOtp']);
         Route::post('userLogin', [UserAuthController::class, 'userLogin']);
-
-        //Route::post('SendOTPForgetPassword', [UserAuthController::class, 'SendOTPForgetPassword']);
-        //Route::post('changePassword', [UserAuthController::class, 'changePassword']);
+        Route::post('SendOTPForgetPassword', [UserAuthController::class, 'SendOTPForgetPassword']);
+        Route::post('changePassword', [UserAuthController::class, 'changePassword']);
     });
     Route::middleware(['auth:sanctum', 'checkLogin'])->withoutMiddleware([VerifyCsrfToken::class])->group(function() {
         Route::post('completeProfile', [UserAuthController::class, 'completeProfile']);

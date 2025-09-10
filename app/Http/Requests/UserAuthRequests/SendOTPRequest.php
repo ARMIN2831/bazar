@@ -25,7 +25,7 @@ class SendOTPRequest extends FormRequest
             'village_id' => 'required|string|exists:villages,id',
             'nationalCode' => 'required|string',
             'mobile' => 'required',
-            'password' => 'required|string',
+            'password' => 'required|string|min:8',
         ];
     }
 

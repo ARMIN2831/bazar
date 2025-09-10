@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserAuthRequests\ChangePasswordRequest;
 use App\Http\Requests\UserAuthRequests\CompleteProfileRequest;
 use App\Http\Requests\UserAuthRequests\LoginRequest;
+use App\Http\Requests\UserAuthRequests\SendOTPForgetPasswordRequest;
 use App\Http\Requests\UserAuthRequests\SendOTPRequest;
 use App\Http\Requests\UserAuthRequests\VerifyOTPRequest;
 use App\Models\Customer;
@@ -11,6 +13,7 @@ use App\Models\Provider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserAuthController extends Controller
 {
@@ -146,6 +149,37 @@ class UserAuthController extends Controller
         return response()->json([
             'message' => 'success',
             'user' => $user,
+        ]);
+    }
+
+
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $request->validated();
+        $user = User::where('mobile',$request->mobile)->first();
+        verifyOTPCode('mobile',$user->id,get_class($user),$request->otp);
+        $user->update(['password' => bcrypt($request->password),]);
+        return response()->json([
+            'status' => 'success',
+            'message' => trans('messages.password_changed')
+        ]);
+    }
+
+
+    public function SendOTPForgetPassword(SendOTPForgetPasswordRequest $request)
+    {
+        $request->validated();
+
+        $user = User::where('mobile',$request->mobile)->first();
+
+        $otpCode = sendOTPCode('mobile',$user->id,get_class($user),$request->mobile);
+
+        return response()->json([
+            'otpCode' => $otpCode,
+            'status' => 'error',
+            'message' => trans('messages.OTP_send'),
+            'remaining_time' => 120
         ]);
     }
 

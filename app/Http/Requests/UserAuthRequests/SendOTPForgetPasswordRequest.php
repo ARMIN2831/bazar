@@ -7,7 +7,6 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 class SendOTPForgetPasswordRequest extends FormRequest
 {
-    public bool $isEmail;
 
 
     public function authorize(): bool
@@ -16,17 +15,10 @@ class SendOTPForgetPasswordRequest extends FormRequest
     }
 
 
-    protected function prepareForValidation()
-    {
-        $this->isEmail = filter_var($this->email_mobile, FILTER_VALIDATE_EMAIL);
-    }
-
-
     public function rules(): array
     {
         return [
-            'type' => 'required|in:doctors,patients,translators,drivers',
-            'email_mobile' => ['required'],
+            'mobile' => 'required|exists:users,mobile',
         ];
     }
 
