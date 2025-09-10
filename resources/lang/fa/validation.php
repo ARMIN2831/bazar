@@ -112,6 +112,7 @@ return [
     */
 
     'attributes'           => [
+        'nationalCode' => 'کد ملی',
         'email_mobile' => 'ایمیل یا موبایل',
         'type' => 'نوع کاربر',
         'currency_id' => 'ارز',

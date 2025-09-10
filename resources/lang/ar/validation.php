@@ -112,6 +112,7 @@ return [
     */
 
     'attributes'           => [
+        'nationalCode' => 'الرمز الوطني',
         'email_mobile' => 'البريد الإلكتروني أو الهاتف المحمول',
         'type' => 'نوع المستخدم',
         'currency_id' => 'العملة',

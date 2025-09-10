@@ -25,7 +25,7 @@ class VerifyOTPRequest extends FormRequest
             'province_id' => 'required|string|exists:provinces,id',
             'city_id' => 'required|string|exists:cities,id',
             'village_id' => 'required|string|exists:villages,id',
-            'nationalCode' => 'required|string',
+            'nationalCode' => 'required|string|unique:users,nationalCode',
             'password' => 'required|string|min:8',
         ];
     }

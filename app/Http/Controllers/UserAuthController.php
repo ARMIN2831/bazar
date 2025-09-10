@@ -8,12 +8,9 @@ use App\Http\Requests\UserAuthRequests\LoginRequest;
 use App\Http\Requests\UserAuthRequests\SendOTPForgetPasswordRequest;
 use App\Http\Requests\UserAuthRequests\SendOTPRequest;
 use App\Http\Requests\UserAuthRequests\VerifyOTPRequest;
-use App\Models\Customer;
-use App\Models\Provider;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class UserAuthController extends Controller
 {
@@ -160,10 +157,14 @@ class UserAuthController extends Controller
         $request->validated();
         $user = User::where('mobile',$request->mobile)->first();
         verifyOTPCode('mobile',$user->id,get_class($user),$request->otp);
-        $user->update(['password' => bcrypt($request->password),]);
+        $user->update(['password' => bcrypt($request->password)]);
+
         return response()->json([
             'status' => 'success',
-            'message' => trans('messages.password_changed')
+            'message' => trans('messages.password_changed'),
+            'access_token' => $user->createToken('auth_token')->plainTextToken,
+            'token_type' => 'Bearer',
+            'user' => $user
         ]);
     }
 
@@ -183,53 +184,4 @@ class UserAuthController extends Controller
             'remaining_time' => 120
         ]);
     }
-
-
-    /*public function changePassword(ChangePasswordRequest $request)
-    {
-        $request->validated();
-        $email_mobile = $request->email_mobile;
-        $isEmail = filter_var($email_mobile, FILTER_VALIDATE_EMAIL);
-        $field = $isEmail ? 'email' : 'mobile';
-        $model = match($request->type) {
-            'doctors' => Doctor::class,
-            'patients' => Patient::class,
-            'translators' => Translator::class,
-            'drivers' => Driver::class,
-        };
-        $user = $model::where($field,$email_mobile)->first();
-        verifyOTPCode($field,$user->id,get_class($user),$request->otp);
-        $user->password = Hash::make($request->new_password);
-        $user->save();
-        return response()->json([
-            'status' => 'success',
-            'message' => trans('messages.password_changed')
-        ]);
-    }
-
-
-    public function SendOTPForgetPassword(SendOTPForgetPasswordRequest $request)
-    {
-        $request->validated();
-        $email_mobile = $request->email_mobile;
-        $isEmail = filter_var($email_mobile, FILTER_VALIDATE_EMAIL);
-        $field = $isEmail ? 'email' : 'mobile';
-
-        $model = match($request->type) {
-            'doctors' => Doctor::class,
-            'patients' => Patient::class,
-            'translators' => Translator::class,
-            'drivers' => Driver::class,
-        };
-
-        $user = $model::where($field,$email_mobile)->first();
-
-        sendOTPCode($field,$user->id,get_class($user),$email_mobile);
-
-        return response()->json([
-            'status' => 'error',
-            'message' => trans('messages.OTP_send'),
-            'remaining_time' => 120
-        ]);
-    }*/
 }

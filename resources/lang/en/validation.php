@@ -15,6 +15,7 @@ return[
 
 
     'attributes' => [
+        'nationalCode' => 'national code',
         'email_mobile' => 'email or mobile',
         'car_type' => 'car type',
         'newPassword' => 'new password',
