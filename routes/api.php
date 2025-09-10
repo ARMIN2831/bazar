@@ -37,8 +37,6 @@ Route::get('/start', function () {
 Route::middleware('SetLan')->group(function (){
     Route::withoutMiddleware([VerifyCsrfToken::class])->group(function() {
         Route::get('getProvinces', [HomeController::class, 'getProvinces']);
-        Route::get('getCities', [HomeController::class, 'getCities']);
-        Route::get('getVillages', [HomeController::class, 'getVillages']);
     });
 
 

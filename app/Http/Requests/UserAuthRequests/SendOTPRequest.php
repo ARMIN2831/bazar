@@ -18,14 +18,7 @@ class SendOTPRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'province_id' => 'required|string|exists:provinces,id',
-            'city_id' => 'required|string|exists:cities,id',
-            'village_id' => 'required|string|exists:villages,id',
-            'nationalCode' => 'required|string',
             'mobile' => 'required',
-            'password' => 'required|string|min:8',
         ];
     }
 

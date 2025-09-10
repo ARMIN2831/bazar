@@ -49,18 +49,11 @@ class UserAuthController extends Controller
     {
         $request->validated();
         $userData = [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'province_id' => $request->province_id,
-            'city_id' => $request->city_id,
-            'village_id' => $request->village_id,
-            'nationalCode' => $request->nationalCode,
             'mobile' => $request->mobile,
-            'password' => bcrypt($request->password),
         ];
 
 
-        if (User::where('mobile', $request->mobile)->where(function ($query) {$query->where('mobile_active', 1);})->first()){
+        if (User::where('mobile', $request->mobile)->where('mobile_active', 1)->first()){
             return response()->json([
                 'status' => 'error',
                 'message' => trans('messages.user_exists'),
@@ -89,8 +82,16 @@ class UserAuthController extends Controller
 
         $user = User::where('mobile', $request->mobile)->firstOrFail();
         verifyOTPCode('mobile',$user->id,User::class,$request->code);
+
         $user->update([
-            'mobile_active' => 1
+            'mobile_active' => 1,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'province_id' => $request->province_id,
+            'city_id' => $request->city_id,
+            'village_id' => $request->village_id,
+            'nationalCode' => $request->nationalCode,
+            'password' => bcrypt($request->password),
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

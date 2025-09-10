@@ -14,34 +14,17 @@ class HomeController extends Controller
 
     public function getProvinces(Request $request)
     {
-        $countries = Province::get();
+        $provinces = Province::get();
+        $cities = [];
+        $villages = [];
+        if ($request->province_id) $cities = City::where('province_id',$request->province_id)->get();
+        if ($request->city_id) $villages = Village::where('city_id',$request->city_id)->get();
+
         return response()->json([
             'status' => 'success',
-            'data' => $countries,
-        ], 200);
-    }
-
-
-    public function getCities(Request $request)
-    {
-        $cities = City::query();
-        if ($request->province_id) $cities->where('province_id',$request->country_id);
-        $cities = $cities->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $cities,
-        ], 200);
-    }
-
-
-    public function getVillages(Request $request)
-    {
-        $villages = Village::query();
-        if ($request->city_id) $villages->where('city_id',$request->city_id);
-        $villages = $villages->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $villages,
+            'provinces' => $provinces,
+            'cities' => $cities,
+            'villages' => $villages,
         ], 200);
     }
 }

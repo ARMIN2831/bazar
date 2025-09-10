@@ -48,7 +48,7 @@ if (!function_exists('sendOTPCode')) {
                    'status' => 'error',
                    'message' => trans('messages.OTP_is_valid'),
                    'remaining_time' => round($remainingTime)
-               ], 429)
+               ], 200)
             );
         }
 

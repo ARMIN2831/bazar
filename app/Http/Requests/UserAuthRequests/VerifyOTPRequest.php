@@ -20,6 +20,13 @@ class VerifyOTPRequest extends FormRequest
         return [
             'code' => 'required',
             'mobile' => 'required',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'province_id' => 'required|string|exists:provinces,id',
+            'city_id' => 'required|string|exists:cities,id',
+            'village_id' => 'required|string|exists:villages,id',
+            'nationalCode' => 'required|string',
+            'password' => 'required|string|min:8',
         ];
     }
 
