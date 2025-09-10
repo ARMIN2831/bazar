@@ -34,9 +34,11 @@ class HomeController extends Controller
     }
 
 
-    public function getVillages()
+    public function getVillages(Request $request)
     {
-        $villages = Village::get();
+        $villages = Village::query();
+        if ($request->city_id) $villages->where('city_id',$request->city_id);
+        $villages = $villages->get();
         return response()->json([
             'status' => 'success',
             'data' => $villages,

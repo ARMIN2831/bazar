@@ -18,21 +18,20 @@ class StartSeeder extends Seeder
     public function run(): void
     {
         $province = Province::create([
-            'fa_title' => 'ایران',
-            'ar_title' => 'ایران',
-            'en_title' => 'Iran',
-            'timezone' => 'Asia/Tehran',
+            'fa_title' => 'تهران',
+            'ar_title' => 'تهران',
+            'en_title' => 'Tehran',
         ]);
         City::create([
             'province_id' => $province->id,
-            'fa_title' => 'tehran',
-            'ar_title' => 'تهران',
-            'en_title' => 'تهران',
+            'fa_title' => 'ورامین',
+            'ar_title' => 'ورامین',
+            'en_title' => 'Varamin',
         ]);
         Village::create([
-            'fa_title' => 'tehran',
-            'ar_title' => 'تهران',
-            'en_title' => 'تهران',
+            'fa_title' => 'ورامین',
+            'ar_title' => 'ورامین',
+            'en_title' => 'Valmazo',
         ]);
     }
 }

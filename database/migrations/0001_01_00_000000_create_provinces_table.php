@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('fa_title');
             $table->string('en_title');
             $table->string('ar_title');
-            $table->string('timezone');
             $table->timestamps();
         });
         Schema::create('cities', function (Blueprint $table) {
@@ -29,6 +28,7 @@ return new class extends Migration
         });
         Schema::create('villages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('city_id')->constrained()->onDelete('cascade');
             $table->string('fa_title');
             $table->string('en_title');
             $table->string('ar_title');
