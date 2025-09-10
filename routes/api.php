@@ -7,13 +7,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/test', function () {
+    return "access";
+});
 Route::get('/start', function () {
     $log = [];
 
     $commands = [
-        'migrate:fresh' => 'Database migrated (fresh)',
-        'db:seed --class=StartSeeder' => 'Database seeded (StartSeeder)',
-        'db:seed --class=CountrySeeder' => 'Database seeded (CountrySeeder)',
+        //'migrate:fresh' => 'Database migrated (fresh)',
+        //'db:seed --class=StartSeeder' => 'Database seeded (StartSeeder)',
+        //'db:seed --class=CountrySeeder' => 'Database seeded (CountrySeeder)',
         'cache:clear' => 'Cache cleared',
         'route:clear' => 'Route cache cleared',
         'config:clear' => 'Config cache cleared',
@@ -33,7 +36,7 @@ Route::get('/start', function () {
 
 Route::middleware('SetLan')->group(function (){
     Route::withoutMiddleware([VerifyCsrfToken::class])->group(function() {
-        Route::get('getCountries', [HomeController::class, 'getCountries']);
+        Route::get('getProvinces', [HomeController::class, 'getProvinces']);
         Route::get('getCities', [HomeController::class, 'getCities']);
         Route::get('getVillages', [HomeController::class, 'getVillages']);
     });

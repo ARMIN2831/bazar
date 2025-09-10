@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function getCities(Request $request)
     {
         $cities = City::query();
-        if ($request->country_id) $cities->where('country_id',$request->country_id);
+        if ($request->province_id) $cities->where('province_id',$request->country_id);
         $cities = $cities->get();
         return response()->json([
             'status' => 'success',

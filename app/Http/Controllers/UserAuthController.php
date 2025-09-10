@@ -20,7 +20,7 @@ class UserAuthController extends Controller
     {
         $request->validated();
 
-        $credentials = $request->only(['password']);
+        $credentials = $request->only(['password','mobile']);
 
 
         if (Auth::attempt($credentials)) {
@@ -109,17 +109,21 @@ class UserAuthController extends Controller
             'type' => $request->type,
         ];
         if ($request->type == 'providers'){
+            $filePath = $user->cart_image;
+            if ($request->cart_image) $filePath = uploadFile($request->cart_image);
             $userData = [
                 'postal_code' => $request->postal_code,
-                'cart_image' => $request->cart_image,
+                'cart_image' => $filePath,
                 'account_number' => $request->account_number,
                 'card_number' => $request->card_number,
                 'iban' => $request->iban,
             ];
         }
         if ($request->type == 'customers'){
+            $filePath = $user->image;
+            if ($request->image) $filePath = uploadFile($request->image);
             $userData = [
-                'image' => $request->image,
+                'image' => $filePath,
                 'birth' => $request->birth,
                 'father_name' => $request->father_name,
                 'address' => $request->address,
@@ -130,7 +134,7 @@ class UserAuthController extends Controller
         $user->update($userData);
         return response()->json([
             'status' => 'success',
-            'message' => trans('messages.registration_successful'),
+            'message' => trans('messages.profile_updated'),
         ], 200);
     }
 

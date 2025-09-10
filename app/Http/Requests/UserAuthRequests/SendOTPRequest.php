@@ -23,8 +23,8 @@ class SendOTPRequest extends FormRequest
             'province_id' => 'required|string|exists:provinces,id',
             'city_id' => 'required|string|exists:cities,id',
             'village_id' => 'required|string|exists:villages,id',
-            'nationalCode' => 'required|string|unique:nationalCode,users',
-            'mobile' => 'required|unique:mobile,users',
+            'nationalCode' => 'required|string',
+            'mobile' => 'required',
             'password' => 'required|string',
         ];
     }

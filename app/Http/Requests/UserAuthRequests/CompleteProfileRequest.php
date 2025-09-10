@@ -17,23 +17,22 @@ class CompleteProfileRequest extends FormRequest
 
     public function rules(): array
     {
+        $userId = $this->user()->id;
         $rules = [
             'type' => 'required|in:providers,customers',
         ];
 
         if ($this->type === 'providers') {
             $rules['postal_code'] = 'required|string';
-            $rules['cart_image'] = 'required';
-            $rules['account_number'] = 'required|unique:account_number,users';
-            $rules['card_number'] = 'required|unique:card_number,users';
-            $rules['iban'] = 'required|string|unique:iban,users';
+            $rules['account_number'] = 'required|unique:users,account_number,'. $userId;
+            $rules['card_number'] = 'required|unique:users,card_number,'. $userId;
+            $rules['iban'] = 'required|string|unique:users,iban,'. $userId;
         }
         if ($this->type === 'customers') {
-            $rules['image'] = 'required';
             $rules['birth'] = 'required';
             $rules['father_name'] = 'required|string';
             $rules['address'] = 'required|string';
-            $rules['email'] = 'required|unique:email,users';
+            $rules['email'] = 'required|unique:users,email,'. $userId;
         }
 
         return $rules;
