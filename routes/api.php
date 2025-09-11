@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProviderController\ProviderController;
 use App\Http\Controllers\UserAuthController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ Route::get('/start', function () {
     $log = [];
 
     $commands = [
-        //'migrate:fresh' => 'Database migrated (fresh)',
+        'migrate' => 'Database migrated (fresh)',
         //'db:seed --class=StartSeeder' => 'Database seeded (StartSeeder)',
         //'db:seed --class=CountrySeeder' => 'Database seeded (CountrySeeder)',
         'cache:clear' => 'Cache cleared',
@@ -37,6 +38,8 @@ Route::get('/start', function () {
 Route::middleware('SetLan')->group(function (){
     Route::withoutMiddleware([VerifyCsrfToken::class])->group(function() {
         Route::get('getProvinces', [HomeController::class, 'getProvinces']);
+        Route::get('getWorks', [HomeController::class, 'getWorks']);
+        Route::get('getAdvertisements', [HomeController::class, 'getAdvertisements']);
     });
 
 
@@ -51,5 +54,14 @@ Route::middleware('SetLan')->group(function (){
     Route::middleware(['auth:sanctum', 'checkLogin'])->withoutMiddleware([VerifyCsrfToken::class])->group(function() {
         Route::post('completeProfile', [UserAuthController::class, 'completeProfile']);
         Route::get('getUser', [UserAuthController::class, 'getUser']);
+
+        Route::middleware('CheckUserType:providers')->prefix('providers')->group(function () {
+            Route::post('storeAdvertisement', [ProviderController::class, 'storeAdvertisement']);
+        });
+
+        Route::middleware('CheckUserType:customers')->prefix('customers')->group(function () {
+
+        });
     });
 });
+

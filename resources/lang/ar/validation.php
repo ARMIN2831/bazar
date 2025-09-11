@@ -112,6 +112,8 @@ return [
     */
 
     'attributes'           => [
+        'work_id' => 'معرّف العمل',
+        'sitePercent' => 'نسبة الموقع',
         'nationalCode' => 'الرمز الوطني',
         'email_mobile' => 'البريد الإلكتروني أو الهاتف المحمول',
         'type' => 'نوع المستخدم',

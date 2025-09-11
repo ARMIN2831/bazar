@@ -15,6 +15,8 @@ return[
 
 
     'attributes' => [
+        'work_id' => 'Work ID',
+        'sitePercent' => 'Site percent',
         'nationalCode' => 'national code',
         'email_mobile' => 'email or mobile',
         'car_type' => 'car type',

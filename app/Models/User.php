@@ -40,4 +40,9 @@ class User extends Authenticatable
 
         return new NewAccessToken($token, $token->getKey() . '|' . $plainTextToken);
     }
+
+    public function advertisement()
+    {
+        return $this->hasMany(Advertisement::class);
+    }
 }

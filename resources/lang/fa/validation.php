@@ -112,6 +112,8 @@ return [
     */
 
     'attributes'           => [
+        'sitePercent' => 'درصد سایت',
+        'work_id' => 'شناسه کار',
         'nationalCode' => 'کد ملی',
         'email_mobile' => 'ایمیل یا موبایل',
         'type' => 'نوع کاربر',

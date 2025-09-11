@@ -34,4 +34,5 @@ return [
     'appointment_has_taken' => 'This appointment has already been taken.',
     'not_enough_wallet' => 'Not enough wallet balance.',
     'rate_successful' => 'Rating submitted successfully.',
+    'advertisement_uploaded' => 'Advertisement uploaded successfully.',
 ];

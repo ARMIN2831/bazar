@@ -106,9 +106,6 @@ class UserAuthController extends Controller
     {
         $request->validated();
         $user = $request->user();
-        $userData = [
-            'type' => $request->type,
-        ];
         if ($request->type == 'providers'){
             $filePath = $user->cart_image;
             if ($request->cart_image) $filePath = uploadFile($request->cart_image);
@@ -131,6 +128,7 @@ class UserAuthController extends Controller
                 'email' => $request->email,
             ];
         }
+        $userData['type'] = $request->type;
 
         $user->update($userData);
         return response()->json([

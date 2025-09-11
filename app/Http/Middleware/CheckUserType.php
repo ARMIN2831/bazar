@@ -18,7 +18,7 @@ class CheckUserType
     {
         $user = $request->user();
         if ($user) {
-            $type = strtolower(class_basename($user));
+            $type = $user->type;
             if ($type !== $guard){
                 return response()->json([
                     'status' => 'failed',
